@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite - Elevate Your Dine-in Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1ec7ec;
+            --secondary-color: #ffffff;
+            --background-dark: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-color: #2a2a2a;
+            --hover-color: #19b3d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Red Hat Display', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .animated-string {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            height: 1px;
+            width: 100%;
+            opacity: 0;
+            animation: stringAnimation 8s infinite;
+        }
+
+        .string-1 { top: 20%; animation-delay: 0s; }
+        .string-2 { top: 40%; animation-delay: 2s; }
+        .string-3 { top: 60%; animation-delay: 4s; }
+        .string-4 { top: 80%; animation-delay: 6s; }
+
+        @keyframes stringAnimation {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+            80% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--background-dark) 0%, #1a1a1a 100%);
+            position: relative;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        /* App Links Section */
+        .app-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: all 0.3s;
+            width: 300px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .app-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .app-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .app-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-button:hover {
+            transform: translateY(-2px);
+            background-color: #333;
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .app-button:active {
+            transform: translateY(0);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--card-bg);
+        }
+
+        .feature-section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .feature-groups-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .feature-group {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .feature-group h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .feature-list li {
+            color: var(--text-secondary);
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+
+        .feature-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-list li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        footer a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile Menu Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+                padding: 12px 0;
+                background-color: var(--background-dark);
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .nav-links a {
+                margin: 0;
+                font-size: 13px;
+                padding: 4px 0;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+                padding: 0 20px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+
+            .app-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 0 20px;
+            }
+
+            .app-card {
+                width: 100%;
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .feature-groups-container {
+                flex-direction: column;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .feature-group {
+                max-width: 100%;
+            }
+
+            .feature-section-title {
+                font-size: 28px;
+                padding: 0 20px;
+            }
+
+            .feature-list {
+                padding: 15px;
+            }
+
+            .feature-list li {
+                font-size: 15px;
+                padding-left: 20px;
+                margin-bottom: 10px;
+            }
+
+            .app-button {
+                width: 100%;
+                text-align: center;
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .feature-section-title {
+                font-size: 24px;
+            }
+
+            .feature-group h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background">
+        <div class="animated-string string-1"></div>
+        <div class="animated-string string-2"></div>
+        <div class="animated-string string-3"></div>
+        <div class="animated-string string-4"></div>
+    </div>
+    <header>
+        <nav class="container">
+            <div class="logo">QuickBite</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#apps">Apps</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Elevate Your Dine-in Experiences</h1>
+            <p>Enjoy hassle-free ordering and a peaceful restaurant dine-in experience with QuickBite</p>
+            <p>skip the queues, browse menus in seconds, track your order in real-time, pay securely via UPI, and explore multiple restaurants all in one app.</p>
+            <p style="margin-top: 20px; font-size: 18px; color: var(--text-secondary);">Join thousands of restaurants and customers who are transforming their dining experience.</p>
+            <div class="app-links" id="apps" style="scroll-margin-top: 100px;">
+                <div class="app-card">
+                    <h3>For Customers</h3>
+                    <p>Order food instantly from your favorite restaurants</p>
+                    <a href="https://youtube.com" class="app-button">Download App</a>
+                </div>
+                <div class="app-card">
+                    <h3>For Restaurants</h3>
+                    <p>Manage orders and grow your business</p>
+                    <a href="https://youtube.com" class="app-button">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="feature-section-title">Why Choose QuickBite?</h2>
+            
+            <div class="feature-groups-container">
+                <div class="feature-group">
+                    <h2>For Customers</h2>
+                    <ul class="feature-list">
+                        <li>Order directly from your table</li>
+                        <li>Skip the waiting lines</li>
+                        <li>Real-time order tracking</li>
+                        <li>Hassle-free dining experience</li>
+                        <li>Pre-order to save time</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <h2>For Restaurants</h2>
+                    <ul class="feature-list">
+                        <li>Streamlined order management</li>
+                        <li>Instant payment confirmation</li>
+                        <li>Digital insights and analytics</li>
+                        <li>Automated billing system</li>
+                        <li>Efficient peak hour handling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p style="margin-bottom: 15px;">© 2024 QuickBite. All rights reserved.</p>
+            <p style="color: var(--primary-color); font-size: 18px;">
+                <a href="mailto:thequickbiteofficial@gmail.com?subject=QuickBite Inquiry" style="color: var(--primary-color); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    thequickbiteofficial@gmail.com
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script>
+        // Remove all mobile menu related JavaScript
+    </script>
+</body>
+</html> 
